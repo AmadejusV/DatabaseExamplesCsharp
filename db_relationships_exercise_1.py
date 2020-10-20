@@ -59,10 +59,9 @@ def get_customers_products():
 
 
 def get_customers_products_info():
-    query = """SELECT * FROM Customers, Products
-            LEFT JOIN Customers_Products
-            WHERE Customers.customer_id = Customers_Products.customer_id
-            AND Products.product_id = Customers_Products.product_id"""
+    query = """SELECT * FROM Customers_Products
+            JOIN Customers ON Customers.customer_id = Customers_Products.customer_id
+            JOIN Products ON Products.product_id = Customers_Products.product_id"""
     with DatabaseContextManager("db") as db:
         db.execute(query)
         for record in db.fetchall():
